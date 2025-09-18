@@ -1,0 +1,15 @@
+[package]
+name = "rentableNft"
+version = "1.0.0"
+authors = []
+
+[addresses]
+MyModule ="0xfb1560f037635d04192763765432aefad184fa261f22b16671a57ae4184fa6b3"
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-framework.git"
+rev = "mainnet"
+subdir = "aptos-framework"
+
+[dev-dependencies]
