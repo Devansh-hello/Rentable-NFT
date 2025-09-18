@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
+import { Network } from "@aptos-labs/ts-sdk";
+import WalletConnector from './components/WalletConnector';
+import NFTMarketplace from './components/NFTMarketplace';
+import CreateNFT from './components/CreateNFT';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <AptosWalletAdapterProvider
+      autoConnect={true}
+      dappConfig={{
+        network: Network.TESTNET,
+        // Add your API key if you have one
+        // aptosApiKey: "your-api-key-here"
+      }}
+      onError={(error) => {
+        console.error("Wallet adapter error:", error);
+      }}
+    >
+      <div className="App">
+        <header className="App-header">
+          <h1>🎨 RentableNFT Marketplace</h1>
+          <WalletConnector />
+        </header>
+        
+        <main className="container">
+          <div className="grid">
+            <CreateNFT />
+            <NFTMarketplace />
+          </div>
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </AptosWalletAdapterProvider>
+  );
 }
 
-export default App
+export default App;
